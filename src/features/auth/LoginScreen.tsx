@@ -37,11 +37,12 @@ export default function LoginScreen() {
         <Controller
           control={control}
           name='email'
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <View className='gap-1'>
               <TextInput
                 autoCapitalize='none'
                 keyboardType='email-address'
+                onBlur={onBlur}
                 onChangeText={onChange}
                 placeholder='Email'
                 placeholderTextColor={theme.textSecondary}
@@ -66,9 +67,10 @@ export default function LoginScreen() {
         <Controller
           control={control}
           name='password'
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <View className='gap-1'>
               <TextInput
+                onBlur={onBlur}
                 onChangeText={onChange}
                 placeholder='Senha'
                 placeholderTextColor={theme.textSecondary}

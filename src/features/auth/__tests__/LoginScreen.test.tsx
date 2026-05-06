@@ -32,6 +32,7 @@ describe('LoginScreen', () => {
     });
 
     expect(getByText('Login enviado com sucesso')).toBeTruthy();
+    expect(getByTestId('login-success')).toBeTruthy();
   });
 
   it('button disabled when fields empty', () => {
