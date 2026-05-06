@@ -8,8 +8,8 @@ import * as SecureStore from 'expo-secure-store';
 import { useAuthStore } from '@/stores/auth-store';
 
 beforeEach(() => {
-  jest.clearAllMocks();
   useAuthStore.getState().reset();
+  jest.clearAllMocks();
 });
 
 describe('auth-store', () => {
