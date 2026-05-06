@@ -22,4 +22,11 @@ describe('auth-store', () => {
     expect(useAuthStore.getState().isAuthenticated).toBe(false);
     expect(useAuthStore.getState().user).toBeNull();
   });
+
+  it('reset restores initial state after login', () => {
+    useAuthStore.getState().login({ email: 'a@b.com' });
+    useAuthStore.getState().reset();
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().user).toBeNull();
+  });
 });

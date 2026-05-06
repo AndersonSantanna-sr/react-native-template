@@ -12,7 +12,7 @@ type AuthState = {
   reset: () => void;
 };
 
-const initialState = {
+const initialState: Pick<AuthState, 'isAuthenticated' | 'user'> = {
   isAuthenticated: false,
   user: null,
 };
