@@ -17,6 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@react-navigation/bottom-tabs": "^7.15.5",
     "@react-navigation/elements": "^2.9.10",
     "@react-navigation/native": "^7.1.33",
@@ -39,6 +40,7 @@
     "nativewind": "^4.2.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-hook-form": "^7.75.0",
     "react-native": "0.83.6",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-reanimated": "4.2.1",
