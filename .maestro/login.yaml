@@ -1,0 +1,13 @@
+appId: com.reactnativetemplate
+---
+- launchApp
+- assertVisible: "Bem-vindo"
+- tapOn:
+    id: "login-email-input"
+- inputText: "user@example.com"
+- tapOn:
+    id: "login-password-input"
+- inputText: "senha123"
+- tapOn:
+    id: "login-button"
+- assertVisible: "Login enviado com sucesso"
