@@ -32,6 +32,7 @@ module.exports = {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'react/react-in-jsx-scope': 'off',
     'react-native/no-inline-styles': 'off',
+    'react-native/no-raw-text': 'off',
   },
   ignorePatterns: ['node_modules/', 'android/', 'ios/', '.expo/', 'build/', 'dist/', 'coverage/'],
 };

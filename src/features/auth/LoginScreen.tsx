@@ -18,43 +18,43 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 justify-center" style={{ backgroundColor: theme.background }}>
-      <View className="mx-6 gap-4">
-        <Text className="text-3xl font-bold" style={{ color: theme.text }}>
+    <SafeAreaView className='flex-1 justify-center' style={{ backgroundColor: theme.background }}>
+      <View className='mx-6 gap-4'>
+        <Text className='text-3xl font-bold' style={{ color: theme.text }}>
           Bem-vindo
         </Text>
-        <Text className="text-base" style={{ color: theme.textSecondary }}>
+        <Text className='text-base' style={{ color: theme.textSecondary }}>
           Faça login para continuar
         </Text>
 
         <TextInput
-          autoCapitalize="none"
-          keyboardType="email-address"
+          autoCapitalize='none'
+          keyboardType='email-address'
           onChangeText={setEmail}
-          placeholder="Email"
+          placeholder='Email'
           placeholderTextColor={theme.textSecondary}
-          className="rounded-xl border px-4 py-3 text-base"
+          className='rounded-xl border px-4 py-3 text-base'
           style={{
             borderColor: theme.backgroundElement,
             color: theme.text,
             backgroundColor: theme.backgroundElement,
           }}
-          testID="login-email-input"
+          testID='login-email-input'
           value={email}
         />
 
         <TextInput
           onChangeText={setPassword}
-          placeholder="Senha"
+          placeholder='Senha'
           placeholderTextColor={theme.textSecondary}
           secureTextEntry
-          className="rounded-xl border px-4 py-3 text-base"
+          className='rounded-xl border px-4 py-3 text-base'
           style={{
             borderColor: theme.backgroundElement,
             color: theme.text,
             backgroundColor: theme.backgroundElement,
           }}
-          testID="login-password-input"
+          testID='login-password-input'
           value={password}
         />
 
@@ -62,13 +62,13 @@ export default function LoginScreen() {
           disabled={!isValid}
           onPress={handleLogin}
           className={`items-center rounded-xl py-4 ${isValid ? 'bg-blue-800' : 'bg-slate-400'}`}
-          testID="login-button"
+          testID='login-button'
         >
-          <Text className="text-base font-bold text-white">Entrar</Text>
+          <Text className='text-base font-bold text-white'>Entrar</Text>
         </Pressable>
 
         {isAuthenticated && (
-          <Text className="mt-3 font-semibold text-green-700" testID="login-success">
+          <Text className='mt-3 font-semibold text-green-700' testID='login-success'>
             Login enviado com sucesso
           </Text>
         )}
