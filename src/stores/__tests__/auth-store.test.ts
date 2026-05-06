@@ -1,7 +1,7 @@
 jest.mock('expo-secure-store', () => ({
-  getItemAsync: jest.fn(),
-  setItemAsync: jest.fn(),
-  deleteItemAsync: jest.fn(),
+  getItemAsync: jest.fn().mockResolvedValue(null),
+  setItemAsync: jest.fn().mockResolvedValue(undefined),
+  deleteItemAsync: jest.fn().mockResolvedValue(undefined),
 }));
 
 import * as SecureStore from 'expo-secure-store';
@@ -23,6 +23,7 @@ describe('auth-store', () => {
     useAuthStore.getState().login({ email: 'a@b.com' });
     expect(useAuthStore.getState().isAuthenticated).toBe(true);
     expect(useAuthStore.getState().user).toEqual({ email: 'a@b.com' });
+    expect(SecureStore.setItemAsync).not.toHaveBeenCalled();
   });
 
   it('login with token persists token to secure store', () => {
@@ -45,5 +46,7 @@ describe('auth-store', () => {
     useAuthStore.getState().reset();
     expect(useAuthStore.getState().isAuthenticated).toBe(false);
     expect(useAuthStore.getState().user).toBeNull();
+    expect(SecureStore.deleteItemAsync).toHaveBeenCalledWith('auth_token');
+    expect(useAuthStore.getState().token).toBeNull();
   });
 });

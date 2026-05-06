@@ -24,15 +24,15 @@ const initialState: Pick<AuthState, 'isAuthenticated' | 'user' | 'token'> = {
 export const useAuthStore = create<AuthState>((set) => ({
   ...initialState,
   login: (user, token) => {
-    if (token) tokenStorage.set(token);
+    if (token) tokenStorage.set(token).catch(() => {});
     set({ isAuthenticated: true, user, token: token ?? null });
   },
   logout: () => {
-    tokenStorage.delete();
+    tokenStorage.delete().catch(() => {});
     set({ isAuthenticated: false, user: null, token: null });
   },
   reset: () => {
-    tokenStorage.delete();
+    tokenStorage.delete().catch(() => {});
     set(initialState);
   },
 }));
