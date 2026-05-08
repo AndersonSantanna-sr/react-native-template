@@ -37,14 +37,22 @@ describe('ErrorBoundary', () => {
     expect(getByText('Tentar novamente')).toBeTruthy();
   });
 
-  it('shows retry button that resets error state', () => {
+  it('resets error state when retry is pressed', () => {
+    let shouldThrow = true;
+    function ConditionalComponent(): React.ReactElement {
+      if (shouldThrow) throw new Error('Test error message');
+      return <Text>Recuperado</Text>;
+    }
+
     const { getByText } = render(
       <ErrorBoundary>
-        <BrokenComponent />
+        <ConditionalComponent />
       </ErrorBoundary>,
     );
-    fireEvent.press(getByText('Tentar novamente'));
-    // BrokenComponent throws again after reset — error UI re-appears
+
     expect(getByText('Algo deu errado')).toBeTruthy();
+    shouldThrow = false;
+    fireEvent.press(getByText('Tentar novamente'));
+    expect(getByText('Recuperado')).toBeTruthy();
   });
 });
