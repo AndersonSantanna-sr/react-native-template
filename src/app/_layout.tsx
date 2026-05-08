@@ -3,9 +3,10 @@ import '@/global.css';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Slot, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useColorScheme } from 'react-native';
 
+import { ErrorBoundary } from '@/components/error-boundary';
 import { QueryProvider } from '@/providers/query-provider';
 import { useAuthStore } from '@/stores/auth-store';
 
@@ -18,6 +19,7 @@ export default function RootLayout() {
   const initAuth = useAuthStore((s) => s.initAuth);
   const router = useRouter();
   const segments = useSegments();
+  const splashHidden = useRef(false);
 
   useEffect(() => {
     initAuth();
@@ -25,7 +27,10 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (!isInitialized) return;
-    SplashScreen.hideAsync();
+    if (!splashHidden.current) {
+      splashHidden.current = true;
+      SplashScreen.hideAsync().catch(() => {});
+    }
     const inAuth = segments[0] === '(auth)';
     if (!isAuthenticated && !inAuth) {
       router.replace('/(auth)/login');
@@ -35,10 +40,12 @@ export default function RootLayout() {
   }, [isAuthenticated, isInitialized, router, segments]);
 
   return (
-    <QueryProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Slot />
-      </ThemeProvider>
-    </QueryProvider>
+    <ErrorBoundary>
+      <QueryProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Slot />
+        </ThemeProvider>
+      </QueryProvider>
+    </ErrorBoundary>
   );
 }
