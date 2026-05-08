@@ -1,20 +1,41 @@
 import '@/global.css';
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import React from 'react';
+import { Slot, useRouter, useSegments } from 'expo-router';
+import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
 import { QueryProvider } from '@/providers/query-provider';
+import { useAuthStore } from '@/stores/auth-store';
 
-export default function TabLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isInitialized = useAuthStore((s) => s.isInitialized);
+  const initAuth = useAuthStore((s) => s.initAuth);
+  const router = useRouter();
+  const segments = useSegments();
+
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+    const inAuth = segments[0] === '(auth)';
+    if (!isAuthenticated && !inAuth) {
+      router.replace('/(auth)/login');
+    } else if (isAuthenticated && inAuth) {
+      router.replace('/(app)');
+    }
+  }, [isAuthenticated, isInitialized, router, segments]);
+
+  if (!isInitialized) return null;
+
   return (
     <QueryProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <AnimatedSplashOverlay />
-        <AppTabs />
+        <Slot />
       </ThemeProvider>
     </QueryProvider>
   );

@@ -13,10 +13,26 @@ beforeEach(() => {
 });
 
 describe('auth-store', () => {
-  it('starts unauthenticated', () => {
+  it('starts unauthenticated and uninitialized', () => {
     expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().isInitialized).toBe(false);
     expect(useAuthStore.getState().user).toBeNull();
     expect(useAuthStore.getState().token).toBeNull();
+  });
+
+  it('initAuth sets isAuthenticated when token exists in secure store', async () => {
+    (SecureStore.getItemAsync as jest.Mock).mockResolvedValueOnce('stored-token');
+    await useAuthStore.getState().initAuth();
+    expect(useAuthStore.getState().isAuthenticated).toBe(true);
+    expect(useAuthStore.getState().token).toBe('stored-token');
+    expect(useAuthStore.getState().isInitialized).toBe(true);
+  });
+
+  it('initAuth sets isInitialized false->true with no token', async () => {
+    (SecureStore.getItemAsync as jest.Mock).mockResolvedValueOnce(null);
+    await useAuthStore.getState().initAuth();
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().isInitialized).toBe(true);
   });
 
   it('login sets authenticated state', () => {

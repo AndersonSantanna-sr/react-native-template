@@ -4,17 +4,21 @@ Production-ready React Native template built with Expo SDK 55, TypeScript, and a
 
 ## Stack
 
-| Layer          | Library                             |
-| -------------- | ----------------------------------- |
-| Framework      | Expo SDK 55 + Expo Router           |
-| Language       | TypeScript (strict)                 |
-| Styling        | NativeWind v4 (Tailwind CSS)        |
-| State          | Zustand v5                          |
-| Testing (unit) | Jest + React Native Testing Library |
-| Testing (E2E)  | Maestro                             |
-| Linting        | ESLint + Prettier                   |
-| Pre-commit     | Husky + lint-staged                 |
-| CI             | GitHub Actions                      |
+| Layer          | Library                                  |
+| -------------- | ---------------------------------------- |
+| Framework      | Expo SDK 55 + Expo Router                |
+| Language       | TypeScript (strict)                      |
+| Styling        | NativeWind v4 (Tailwind CSS)             |
+| State          | Zustand v5                               |
+| Testing (unit) | Jest + React Native Testing Library      |
+| Testing (E2E)  | Maestro                                  |
+| Linting        | ESLint + Prettier                        |
+| Pre-commit     | Husky + lint-staged                      |
+| CI             | GitHub Actions                           |
+| Data fetching  | TanStack Query v5 + axios                |
+| Validation     | Zod v4 + React Hook Form                 |
+| Token storage  | expo-secure-store                        |
+| Build          | EAS (development / preview / production) |
 
 ## Getting started
 
@@ -52,10 +56,14 @@ pnpm web          # Browser
 ```
 src/
   app/              # Expo Router screens (file-based routing)
+    (auth)/         # Unauthenticated screens (login)
+    (app)/          # Authenticated screens (tabs: home, explore)
   components/       # Shared UI components
   constants/        # Theme tokens (colors, spacing, fonts)
   features/         # Feature modules (auth, etc.)
   hooks/            # Custom hooks
+  lib/              # Utilities: API client, validation schemas, token storage
+  providers/        # React context providers (QueryProvider)
   stores/           # Zustand stores
 ```
 
