@@ -11,8 +11,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: 'automatic',
   ios: {
     supportsTablet: true,
+    bundleIdentifier: 'com.yourcompany.yourapp', // change before first EAS build
   },
   android: {
+    package: 'com.yourcompany.yourapp', // change before first EAS build
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
       foregroundImage: './assets/images/android-icon-foreground.png',
