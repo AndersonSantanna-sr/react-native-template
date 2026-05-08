@@ -23,6 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <View style={styles.container}>
+          {/* TODO: translate or customize these strings */}
           <Text style={styles.title}>Algo deu errado</Text>
           <Text style={styles.message}>{this.state.error?.message ?? 'Erro inesperado'}</Text>
           <Pressable

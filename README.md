@@ -100,6 +100,18 @@ maestro test .maestro/login.yaml
 
 > Start the app first with `pnpm ios` or `pnpm android`.
 
+## Before you ship — required changes
+
+Search `// TODO:` and `{/* TODO: */}` in the codebase to find every placeholder. Summary:
+
+| File                                | What to change                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `app.config.ts`                     | `name`, `slug`, `scheme` — replace `MyApp` / `react-native-template` / `reactnativetemplate`      |
+| `app.config.ts`                     | `bundleIdentifier` + `android.package` — replace `com.yourcompany.yourapp` before first EAS build |
+| `.env`                              | `EXPO_PUBLIC_API_URL` — your real API base URL                                                    |
+| `src/components/error-boundary.tsx` | Translate or customize the error strings (`Algo deu errado`, `Tentar novamente`)                  |
+| `assets/images/`                    | Replace icon, splash, and adaptive icon assets                                                    |
+
 ## Customizing
 
 1. Update `app.config.ts` — change `name`, `slug`, `scheme`, and icon assets

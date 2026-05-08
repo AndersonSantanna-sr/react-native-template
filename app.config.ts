@@ -2,19 +2,19 @@ import { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: process.env.EXPO_PUBLIC_APP_ENV === 'production' ? 'MyApp' : 'MyApp (dev)',
-  slug: 'react-native-template',
+  name: process.env.EXPO_PUBLIC_APP_ENV === 'production' ? 'MyApp' : 'MyApp (dev)', // TODO: change app name
+  slug: 'react-native-template', // TODO: change slug (must be unique on Expo)
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
-  scheme: 'reactnativetemplate',
+  scheme: 'reactnativetemplate', // TODO: change deep link scheme
   userInterfaceStyle: 'automatic',
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.yourcompany.yourapp', // change before first EAS build
+    bundleIdentifier: 'com.yourcompany.yourapp', // TODO: change before first EAS build
   },
   android: {
-    package: 'com.yourcompany.yourapp', // change before first EAS build
+    package: 'com.yourcompany.yourapp', // TODO: change before first EAS build
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
       foregroundImage: './assets/images/android-icon-foreground.png',
