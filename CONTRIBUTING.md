@@ -35,7 +35,7 @@ refactor(scope): code change with no behavior change
 ```bash
 pnpm run lint:eslint    # 0 warnings
 pnpm run typecheck      # 0 errors
-pnpm run test --ci      # all tests pass
+pnpm run test:coverage  # all tests pass with coverage
 ```
 
 ## Pull request
