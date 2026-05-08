@@ -2,11 +2,14 @@ import '@/global.css';
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Slot, useRouter, useSegments } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
 import { QueryProvider } from '@/providers/query-provider';
 import { useAuthStore } from '@/stores/auth-store';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -22,6 +25,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (!isInitialized) return;
+    SplashScreen.hideAsync();
     const inAuth = segments[0] === '(auth)';
     if (!isAuthenticated && !inAuth) {
       router.replace('/(auth)/login');
@@ -29,8 +33,6 @@ export default function RootLayout() {
       router.replace('/(app)');
     }
   }, [isAuthenticated, isInitialized, router, segments]);
-
-  if (!isInitialized) return null;
 
   return (
     <QueryProvider>
