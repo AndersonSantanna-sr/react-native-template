@@ -2,6 +2,10 @@ import axios from 'axios';
 
 import { useAuthStore } from '@/stores/auth-store';
 
+if (__DEV__ && !process.env.EXPO_PUBLIC_API_URL) {
+  console.warn('[api] EXPO_PUBLIC_API_URL not set — copy .env.example to .env');
+}
+
 export const api = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 10_000,
