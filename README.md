@@ -1,56 +1,128 @@
-# Welcome to your Expo app 👋
+# React Native Template
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Production-ready React Native template built with Expo SDK 55, TypeScript, and a curated stack for scalable apps.
 
-## Get started
+## Stack
 
-1. Install dependencies
+| Layer          | Library                                  |
+| -------------- | ---------------------------------------- |
+| Framework      | Expo SDK 55 + Expo Router                |
+| Language       | TypeScript (strict)                      |
+| Styling        | NativeWind v4 (Tailwind CSS)             |
+| State          | Zustand v5                               |
+| Testing (unit) | Jest + React Native Testing Library      |
+| Testing (E2E)  | Maestro                                  |
+| Linting        | ESLint + Prettier                        |
+| Pre-commit     | Husky + lint-staged                      |
+| CI             | GitHub Actions                           |
+| Data fetching  | TanStack Query v5 + axios                |
+| Validation     | Zod v4 + React Hook Form                 |
+| Token storage  | expo-secure-store                        |
+| Build          | EAS (development / preview / production) |
 
-   ```bash
-   npm install
-   ```
+## Getting started
 
-2. Start the app
+### 1. Use this template
 
-   ```bash
-   npx expo start
-   ```
+Click **"Use this template"** on GitHub to create a new repo.
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 2. Install dependencies
 
 ```bash
-npm run reset-project
+pnpm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+> Requires [pnpm](https://pnpm.io/installation). Install with `npm i -g pnpm`.
 
-### Other setup steps
+### 3. Set up environment variables
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+cp .env.example .env
+```
 
-## Learn more
+Edit `.env` with your values.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 4. Start the app
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+pnpm start        # Expo dev server
+pnpm ios          # iOS simulator
+pnpm android      # Android emulator
+pnpm web          # Browser
+```
 
-## Join the community
+## Project structure
 
-Join our community of developers creating universal apps.
+```
+src/
+  app/              # Expo Router screens (file-based routing)
+    (auth)/         # Unauthenticated screens (login)
+    (app)/          # Authenticated screens (tabs: home, explore)
+  components/       # Shared UI components
+  constants/        # Theme tokens (colors, spacing, fonts)
+  features/         # Feature modules (auth, etc.)
+  hooks/            # Custom hooks
+  lib/              # Utilities: API client, validation schemas, token storage
+  providers/        # React context providers (QueryProvider)
+  stores/           # Zustand stores
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Development
+
+### Linting & formatting
+
+```bash
+pnpm run lint:eslint   # ESLint
+pnpm run format        # Prettier
+pnpm run typecheck     # TypeScript
+```
+
+### Tests
+
+```bash
+pnpm test              # Run all unit tests
+pnpm run test:watch    # Watch mode
+```
+
+### E2E tests (Maestro)
+
+Install Maestro:
+
+```bash
+curl -Ls "https://get.maestro.mobile.dev" | bash
+```
+
+Run flows:
+
+```bash
+maestro test .maestro/login.yaml
+```
+
+> Start the app first with `pnpm ios` or `pnpm android`.
+
+## Before you ship — required changes
+
+Search `// TODO:` and `{/* TODO: */}` in the codebase to find every placeholder. Summary:
+
+| File                                | What to change                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `app.config.ts`                     | `name`, `slug`, `scheme` — replace `MyApp` / `react-native-template` / `reactnativetemplate`      |
+| `app.config.ts`                     | `bundleIdentifier` + `android.package` — replace `com.yourcompany.yourapp` before first EAS build |
+| `.env`                              | `EXPO_PUBLIC_API_URL` — your real API base URL                                                    |
+| `src/components/error-boundary.tsx` | Translate or customize the error strings (`Algo deu errado`, `Tentar novamente`)                  |
+| `assets/images/`                    | Replace icon, splash, and adaptive icon assets                                                    |
+
+## Customizing
+
+1. Update `app.config.ts` — change `name`, `slug`, `scheme`, and icon assets
+2. Update `EXPO_PUBLIC_API_URL` in `.env` — your API base URL
+3. Replace `src/features/auth/LoginScreen.tsx` with your own auth flow
+4. Update theme colors in `src/constants/theme.ts`
+
+## CI
+
+GitHub Actions runs on every push and PR to `main`:
+
+- ESLint
+- TypeScript typecheck
+- Jest tests with coverage

@@ -3,6 +3,9 @@ import { Image } from 'expo-image';
 import React from 'react';
 import { useColorScheme, StyleSheet } from 'react-native';
 
+import expoBadgeWhite from '@/assets/images/expo-badge-white.png';
+import expoBadge from '@/assets/images/expo-badge.png';
+
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
@@ -13,32 +16,25 @@ export function WebBadge() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="code" themeColor="textSecondary" style={styles.versionText}>
+      <ThemedText type='code' themeColor='textSecondary' style={styles.versionText}>
         v{version}
       </ThemedText>
-      <Image
-        source={
-          scheme === 'dark'
-            ? require('@/assets/images/expo-badge-white.png')
-            : require('@/assets/images/expo-badge.png')
-        }
-        style={styles.badgeImage}
-      />
+      <Image source={scheme === 'dark' ? expoBadgeWhite : expoBadge} style={styles.badgeImage} />
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  badgeImage: {
+    aspectRatio: 123 / 24,
+    width: 123,
+  },
   container: {
-    padding: Spacing.five,
     alignItems: 'center',
     gap: Spacing.two,
+    padding: Spacing.five,
   },
   versionText: {
     textAlign: 'center',
-  },
-  badgeImage: {
-    width: 123,
-    aspectRatio: 123 / 24,
   },
 });
